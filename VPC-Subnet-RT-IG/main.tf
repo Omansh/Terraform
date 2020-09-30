@@ -54,7 +54,7 @@ resource "aws_route_table_association" "rtst_association" {
 }
 
 
-#Creating a Security Group
+#Creating a Security Group and allowing HTTP & SSH
 resource "aws_security_group" "allow_web" {
   name        = "Allow HTTP"
   description = "Allow Web inbound traffic"
@@ -120,6 +120,5 @@ resource "aws_instance" "web-server-instance" {
   tags = {
     Name = "Web-Server"
   }
-
 }
 
