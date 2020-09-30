@@ -103,7 +103,6 @@ resource "aws_eip" "elasticeip" {
 
 }
 
-
 #Creating a web server, install and enable apache on it
 resource "aws_instance" "web-server-instance" {
   ami               = "ami-0e306788ff2473ccb"
