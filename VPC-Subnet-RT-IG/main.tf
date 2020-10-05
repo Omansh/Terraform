@@ -4,7 +4,7 @@ provider "aws" {
 
 #Creating a VPC with the tag TerraformVPC and the CIDR block "192.168.0.0/16"
 resource "aws_vpc" "testvpc" {
-  cidr_block       = "192.168.0.0/16"
+  cidr_block       = "10.0.0.0/16"
   instance_tenancy = "default"
 
 
@@ -39,7 +39,7 @@ resource "aws_route_table" "route-table" {
 #Creating the subnet under the TerraformVPC with the CIDR block "192.168.0.0/24" and with the Tag as Subnet1
 resource "aws_subnet" "subnet-1" {
   vpc_id            = aws_vpc.testvpc.id
-  cidr_block        = "192.168.0.0/24"
+  cidr_block        = "10.0.0.0/24"
   availability_zone = "ap-south-1a"
 
   tags = {
@@ -90,7 +90,7 @@ resource "aws_security_group" "allow_web" {
 #Creating a network interface with an ip in the subnet that we have created above
 resource "aws_network_interface" "web_server_nic" {
   subnet_id       = aws_subnet.subnet-1.id
-  private_ips     = ["192.168.0.20"]
+  private_ips     = ["10.0.0.20"]
   security_groups = [aws_security_group.allow_web.id]
 }
 
@@ -98,7 +98,7 @@ resource "aws_network_interface" "web_server_nic" {
 resource "aws_eip" "elasticeip" {
   vpc                       = true
   network_interface         = aws_network_interface.web_server_nic.id
-  associate_with_private_ip = "192.168.0.20"
+  associate_with_private_ip = "10.0.0.20"
   depends_on                = [aws_internet_gateway.igateway]
 
 }
